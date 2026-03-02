@@ -7,7 +7,6 @@ export class UsersController{
     @UseGuards(AuthGuard('jwt'))
     @Get()
     findAll(@Req() req) {
-        console.log('USER ', req.user)
         return "get all users";
     }
 }

@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './users/user.module';
-import { UsersService } from './users/users.service';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -12,10 +12,11 @@ import { UsersService } from './users/users.service';
       isGlobal: true,
       envFilePath: `.env.${[process.env.NODE_ENV || 'development']}`
     }),
+    PrismaModule,
     AuthModule,
     UserModule
   ],
   controllers: [AppController],
-  providers: [AppService, UsersService],
+  providers: [AppService],
 })
 export class AppModule {}

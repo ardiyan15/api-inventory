@@ -1,16 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
-    private users = [
-        {
-            id: 1,
-            email: 'test@gmail.com',
-            password: '$2b$10$o3Viydh6KqrhsgGvlN0ktuyeENxO8ZpQeuwcjdL1Xyr8.6HjZzHoa'
-        }
-    ]
+    constructor(private prisma: PrismaService) {}
 
     async findByEmail(email: string) {
-        return this.users.find(user => user.email === email);
+        return this.prisma.user.findUnique({
+            where: {
+                email: email
+            },
+            select: {
+                id: true,
+                email: true,
+                password: true
+            }
+        })
     }
 }
